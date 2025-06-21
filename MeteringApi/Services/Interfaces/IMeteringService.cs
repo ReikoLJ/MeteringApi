@@ -4,6 +4,6 @@ namespace MeteringApi.Services.Interfaces
 {
     public interface IMeteringService
     {
-        Task<UploadResponse> SaveMeterReadingsAsync(IFormFile meterReadingsFile);
+        Task<UploadMeterReadingResponse> SaveMeterReadingsAsync(IFormFile meterReadingsFile);
     }
 }

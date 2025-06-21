@@ -39,9 +39,9 @@ namespace MeteringApi.Controllers
         [Route("meter-reading-uploads")]
         [Consumes("multipart/form-data")]
         [RequestSizeLimit(10 * 1024 * 1024)] // 10 MB
-        [ProducesResponseType(typeof(UploadResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(UploadMeterReadingResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UploadResponse>> UploadMeterReading(IFormFile file)
+        public async Task<ActionResult<UploadMeterReadingResponse>> UploadMeterReading(IFormFile file)
         {
             if (!file.FileName.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
                 return UnprocessableEntity("Only .csv files are accepted.");

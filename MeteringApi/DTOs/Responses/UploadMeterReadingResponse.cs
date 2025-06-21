@@ -1,6 +1,6 @@
 ﻿namespace MeteringApi.DTOs.Responses
 {
-    public class UploadResponse
+    public class UploadMeterReadingResponse
     {
         public int SuccessCount { get; set; }
         public int FailureCount { get; set; }

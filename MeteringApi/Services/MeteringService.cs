@@ -19,7 +19,7 @@ namespace MeteringApi.Services
             _meteringDbContext = meteringDbContext;
         }
 
-        public async Task<UploadResponse> SaveMeterReadingsAsync(IFormFile meterReadingsFile)
+        public async Task<UploadMeterReadingResponse> SaveMeterReadingsAsync(IFormFile meterReadingsFile)
         {
             var records = ExtractRecordsFromCSV(meterReadingsFile);
 
@@ -35,7 +35,7 @@ namespace MeteringApi.Services
             var validReadings = new List<Entity_MeterReading>();
             var processedReadings = new HashSet<(int, DateTime)>();
 
-            var dto = new UploadResponse();
+            var dto = new UploadMeterReadingResponse();
 
             foreach (var record in records)
             {
