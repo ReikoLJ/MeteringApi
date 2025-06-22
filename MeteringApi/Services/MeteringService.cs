@@ -97,7 +97,7 @@ namespace MeteringApi.Services
             }
             catch(Exception ex)
             {
-                throw new InvalidDataException("CSV could not be parsed, please check required format in documentation");
+                throw new InvalidDataException("CSV could not be parsed, please check required format in documentation", ex);
             }
 
             return records;

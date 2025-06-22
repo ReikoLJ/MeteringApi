@@ -22,25 +22,25 @@ namespace MeteringApi.Controllers
         /// Uploads a CSV file containing meter readings
         /// </summary>
         /// <remarks>
-        /// The CSV must have the following columns:
+        /// The CSV must have the following header row:
         ///
         /// AccountId,MeterReadingDateTime,MeterReadValue
         /// 
-        /// The values for these must be types :
+        /// The values for these must be types:
         /// 
-        /// Integer, Datetime, Integer
+        /// Integer, Datetime (`dd-MM-yyyy HH:mm`), Integer
         /// 
         /// Example:
         /// 
         /// 1234,21/06/2025 09:24,1002  
-        /// 4567,22/07/2025 12:25,0323
+        /// 4567,22/07/2025 12:25,323
         /// </remarks>
         [HttpPost]
         [Route("meter-reading-uploads")]
         [Consumes("multipart/form-data")]
         [RequestSizeLimit(10 * 1024 * 1024)] // 10 MB
         [ProducesResponseType(typeof(UploadMeterReadingResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<ActionResult<UploadMeterReadingResponse>> UploadMeterReading(IFormFile file)
         {
             if (!file.FileName.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))

@@ -123,6 +123,29 @@ namespace MeteringApi.UnitTests.Services
         }
 
         [Test]
+        public async Task SaveMeterReadingsAsync_WhenDuplicateInDatabase_ReturnsFailure()
+        {
+            // Arrange
+            var accountId = 1111;
+            var readingDatetime = new DateTime(2025, 06, 22, 12, 30, 00);
+            AddAccount(accountId);
+            AddMeterReading(accountId, readingDatetime, 300);
+
+            var csvContent = new StringBuilder();
+            csvContent.AppendLine("AccountId,MeterReadingDateTime,MeterReadValue");
+            csvContent.AppendLine($"{accountId},{readingDatetime.ToString("dd/MM/yyyy HH:mm")},0323");
+
+            var testCsv = GetMockCsv(csvContent);
+
+            // Act
+            var result = await _target.SaveMeterReadingsAsync(testCsv);
+
+            // Assert
+            result.FailureCount.Should().Be(1);
+            result.Errors.Single().Should().Contain($"Duplicate entry");
+        }
+
+        [Test]
         public async Task SaveMeterReadingsAsync_WhenCSVInvalid_ThrowsException()
         {
             // Arrange
